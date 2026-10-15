@@ -13,7 +13,8 @@ Phase A（不依赖硬件的准备）已经做完大半：
 - [x] 用上游自带的 `maza-ai/esp32-s3` 板型（唯一带墨水屏的官方板）跑通完整编译，
       产出 `merged-binary.bin`，8.54MB。整条工具链验证通过。
 - [ ] 写 4.2 寸 SSD1683 驱动（上游只有 2.9 寸的实现）
-- [ ] 填 `hardware/引脚记录表.md`（等卖家给原理图）
+- [x] 填 `hardware/引脚记录表.md`（用厂家原理图 + 文档读出来的，实物复核留到货当天）
+- [x] 核实板型、codec、OLED、墨水屏驱动 IC 与刷新耗时（结论见设计文档第 2 节）
 - [ ] 写实现计划
 
 ## 目录结构
@@ -61,10 +62,14 @@ python scripts\build.py maza-ai/esp32-s3
    工具链则设 `IDF_GITHUB_ASSETS=dl.espressif.com/github_assets` 走乐鑫国内 CDN，
    实测比代理快很多。工具下载卡在 0 字节临时文件上超过一分钟，基本就是僵了，直接重跑。
 3. **上游的墨水屏驱动不能直接用于 4.2 寸。** `main/display/epd_display/` 里那套是给
-   2.9 寸 SSD1680 系屏写的，初始化序列、`0x22` 刷屏控制字、`0x26` 差分缓冲三处都和
-   4.2 寸 GDEY042T81 不一样，照抄必然花屏。要另写驱动，参考 GxEPD2 的
-   `GxEPD2_420_GDEY042T81` 实现。
-4. **上游 openthread 的嵌套子模块是坏的。** `openthread/third_party/mbedtls/repo/framework`
+   2.9 寸 SSD1680 系屏写的：初始化只发 `0x01/0x0C/0x2C/0x3A/0x3B/0x11/0x3C/0x44/0x45/0x4E/0x4F`、
+   波形全靠 `0x32` 自写 LUT、出图只用 `0x24` 从不写 `0x26`。4.2 寸面板这几处都不一样，
+   照抄必然花屏，得另写驱动。
+4. **厂家资料里混了一份无关的驱动 IC 手册。** 同一目录下的 `UC8176.pdf` 是旧款 4.2 寸屏的
+   驱动 IC 手册，命令集与本板完全对不上。本板面板（微雪 4.2inch e-Paper V2）驱动 IC 是
+   **SSD1683**，依据是面板手册命令表 `0x34` 行明写 "refer to SSD1683 application note"。
+   验收时序也一律以面板手册标称值为准：全刷 3s、快刷 1.5s/1s、局刷 0.42s。
+5. **上游 openthread 的嵌套子模块是坏的。** `openthread/third_party/mbedtls/repo/framework`
    这个孙模块检不出来，会让整棵子模块更新失败。本项目只走 WiFi 不用 Thread，
    已在 esp-idf 仓库里把 openthread 及其嵌套子模块设成 `update = none`。
 
