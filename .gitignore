@@ -4,10 +4,15 @@ firmware/**/managed_components/
 firmware/**/sdkconfig
 firmware/**/sdkconfig.old
 firmware/**/releases/
-firmware/xiaozhi-esp32/
 
 # 墨水屏点亮工程的产物
 firmware/epd-bringup/build/
+
+# 临时验证目录
+.pathtest/
+
+# 上游源码：已 vendored 进本仓库，但保留对上游 .git 的提示
+# （上游 git 目录在 2026-10-15 被移出到 C:\Espressif\xiaozhi-upstream-v2.5.2.git）
 
 # 系统垃圾
 Thumbs.db
