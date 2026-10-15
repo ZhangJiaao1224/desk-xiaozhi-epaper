@@ -1,0 +1,14 @@
+# 固件编译产物
+firmware/**/build/
+firmware/**/managed_components/
+firmware/**/sdkconfig
+firmware/**/sdkconfig.old
+firmware/**/releases/
+firmware/xiaozhi-esp32/
+
+# 墨水屏点亮工程的产物
+firmware/epd-bringup/build/
+
+# 系统垃圾
+Thumbs.db
+desktop.ini
