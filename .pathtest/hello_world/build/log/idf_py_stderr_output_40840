@@ -1,0 +1,1 @@
+Command: cmake -G Ninja -B C:\Users\lenovo\Desktop\桌面小智墨水屏\.pathtest\hello_world\build -DPYTHON_DEPS_CHECKED=1 -DPYTHON=C:\Users\lenovo\.espressif\python_env\idf6.1_py3.13_env\Scripts\python.exe -DESP_PLATFORM=1 -DCCACHE_ENABLE=True C:\Users\lenovo\Desktop\桌面小智墨水屏\.pathtest\hello_world

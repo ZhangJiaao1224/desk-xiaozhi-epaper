@@ -21,6 +21,12 @@
 - 工具链：ESP-IDF **6.1**（上游明确不支持 5.x，网上多数教程是 5.x，不要照抄）。
 - 墨水屏：4.2 寸 400x300 单色，驱动 IC **SSD1683**，面板型号按 GDEY042T81 对待。
 - 采集/显示相关的时序常量必须写注释说明单位和来源。
+- **工程路径必须是纯 ASCII**：2026-10-15 实测，同一份 hello_world 放在含中文的路径下，
+  `idf.py build` 的 cmake 直接崩在退出码 `0xC0000409`，放纯 ASCII 路径下正常。
+  项目目录固定为 `C:\Users\lenovo\Desktop\desk-xiaozhi-epaper`，不许改成中文名。
+- 跑 `idf.py` 前先执行 `C:\Espressif\esp-idf\export.ps1`，并设 `PYTHONUTF8=1`。
+- GitHub 连不上时用 `IDF_GITHUB_ASSETS=dl.espressif.com/github_assets` 走乐鑫国内镜像，
+  实测比第三方代理快很多。
 
 ## 已知的两个坑（别踩回去）
 
