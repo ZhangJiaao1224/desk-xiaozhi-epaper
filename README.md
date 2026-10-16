@@ -76,3 +76,15 @@ python scripts\build.py maza-ai/esp32-s3
 ## 还没清理的东西
 
 `.pathtest/` 是当初测中文路径编译留下的残留，已被 git 忽略，可以直接删掉。
+
+## 来源与许可
+
+本仓库的固件部分基于上游开源项目二次开发：
+
+- 上游：`78/xiaozhi-esp32`（虾哥小智 ESP32）
+- 使用的版本：**v2.5.2**
+- 许可证：MIT，版权归 Shenzhen Xinzhi Future Technology Co., Ltd.
+  许可证原文保留在 `firmware/xiaozhi-esp32/LICENSE`
+
+本仓库在此基础上做的是墨水屏日历（4.2 寸 SSD1683）、四键按键组、喝水计数与提醒
+这几块改动，其余上游代码按原样 vendored 进本仓库，方便编译和日后与上游比对。
